@@ -1,6 +1,8 @@
 # JSON - Associaive Array assertions for PHPUnit
 
-The intentions of this library is provide easy/intuitive assertions when we are a dealing with nested associative   
+[![Build Status](https://travis-ci.org/nordin74/associative-json-assertions.svg?branch=master)](https://travis-ci.org/nordin74/associative-json-assertions)
+
+The intentions of this library is provide easy/intuitive assertions when we are a dealing with nested associative     
 arrays or JSON responses. It based on [PHPUnit](https://phpunit.de/)
 
 
