@@ -1,0 +1,163 @@
+<?php
+
+namespace AssociativeAssertions;
+
+use AssociativeAssertions\AssociativeAssertions as AA;
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
+
+class AssociativeArrayTest extends TestCase
+{
+    use AssociativeArrayTrait;
+
+
+    public function testSuccessful()
+    {
+        $json =
+            <<<JSON
+        {
+            "id"       : 11,
+            "extId"    : "111",
+            "isActive" : true,
+            "value"    : 12,
+            "firstname": "Seiya",
+            "deeper"   : {
+                "key1": "val1",
+                "key2": "2018-02-28 11:11:11",
+                "key3": ["val1", "val2", 11]
+            }
+        }
+JSON;
+
+        $expected = [
+            'id'        => AA::assertInt(),
+            'extId'     => AA::assertDigit(),
+            'isActive'  => AA::assertBoolean(),
+            'value'     => 12,
+            'firstname' => 'Seiya',
+            'deeper'    => [
+                'key1' => 'val1',
+                'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
+                'key3' => function () {
+                    $actual = func_get_args()[0];
+                    $this::assertCount(3, $actual);
+                }
+            ]
+        ];
+
+        $this->assertAssociativeArray($expected, json_decode($json, true));
+    }
+
+
+    public function testFailKeysDiffer()
+    {
+        $actual = [
+            'id'    => 11,
+            'extId' => '111',
+            'date'  => new \DateTime()
+        ];
+
+        $expected = [
+            'id'        => 11,
+            'value'     => 12,
+            'firstname' => 'Seiya'
+        ];
+
+        $message = '';
+        try {
+            $this->assertAssociativeArray($expected, $actual);
+        } catch (ExpectationFailedException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        $this->assertEquals(
+            <<<EOF
+Failed asserting that Array &0 (
+    0 => 'id'
+    1 => 'extId'
+    2 => 'date'
+) is identical to Array &0 (
+    0 => 'id'
+    1 => 'value'
+    2 => 'firstname'
+).
+EOF
+            ,
+            $message
+        );
+    }
+
+
+    public function testFailExactMatch()
+    {
+        $actual = [
+            'firstname' => 'Seiya',
+            'deeper'    => [
+                'key1' => 'val1',
+                'key2' => '2018-02-28 11:11:11',
+                'key3' => ['val1', 'val2', 11]
+            ]
+        ];
+
+        $expected = [
+            'firstname' => 'Seiya',
+            'deeper'    => [
+                'key1' => 'val2',
+                'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
+                'key3' => ['val1', 'val2', 11]
+            ]
+        ];
+
+        $message = '';
+        try {
+            $this->assertAssociativeArray($expected, $actual);
+        } catch (ExpectationFailedException $exception) {
+            $message = $exception->getComparisonFailure()->toString();
+        }
+
+        $this->assertEquals(
+            <<<EOF
+
+--- Expected
++++ Actual
+@@ @@
+-'val1'
++'val2'
+
+EOF
+            ,
+            $message
+        );
+    }
+
+
+    public function testFailAssociativeAssertion()
+    {
+        $actual = [
+            'firstname' => 'Seiya',
+            'deeper'    => [
+                'key1' => 'val1',
+                'key2' => '2018-02-28 11:11:11',
+                'key3' => ['val1', 'val2', 11]
+            ]
+        ];
+
+        $expected = [
+            'firstname' => 'Seiya',
+            'deeper'    => [
+                'key1' => AA::assertObject(),
+                'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
+                'key3' => ['val1', 'val2', 11]
+            ]
+        ];
+
+        $message = '';
+        try {
+            $this->assertAssociativeArray($expected, $actual);
+        } catch (ExpectationFailedException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        $this->assertEquals('Failed asserting that \'val1\' is of type "object".', $message);
+    }
+}

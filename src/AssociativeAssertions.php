@@ -1,0 +1,177 @@
+<?php
+
+namespace AssociativeAssertions;
+
+class AssociativeAssertions
+{
+    /**
+     * @return \Closure
+     */
+    public static function assertString()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('string', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertInt()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('integer', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertDigit()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertDigit($actual, $message);
+        };
+    }
+
+
+    /**
+     * @param string $pattern
+     *
+     * @return \Closure
+     */
+    public static function assertRegExp($pattern)
+    {
+        return function () use ($pattern) {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertRegExp($pattern, $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertBoolean()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('boolean', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @param string $format
+     *
+     * @return \Closure
+     */
+    public static function assertDateTimeStr($format)
+    {
+        return function () use ($format) {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertDateTimeStr($format, $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertFloat()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('float', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertArray()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('array', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertScalar()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('scalar', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertObject()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('object', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertCallable()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('callable', $actual, $message);
+        };
+    }
+
+
+    /**
+     * @return \Closure
+     */
+    public static function assertResource()
+    {
+        return function () {
+            $args    = func_get_args();
+            $actual  = $args[0];
+            $message = $args[1];
+            AbstractAssociativeArray::assertInternalType('resource', $actual, $message);
+        };
+    }
+}
