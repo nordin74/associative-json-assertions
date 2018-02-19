@@ -49,7 +49,7 @@ JSON;
             'extId'     => AA::assertDigit(),
             'isActive'  => AA::assertBoolean(),
             'value'     => 12,
-            'firstname' => 'Seiya',
+            'firstname' => AA::assertString(),
             'surname'   => AA::assertRegExp('~\w+known~'),
             'height'    => AA::assertFloat(),
             'cloth'     => AA::assertScalar(),
