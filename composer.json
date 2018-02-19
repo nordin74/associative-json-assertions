@@ -1,14 +1,15 @@
 {
     "name": "nordin74/associative-json-assertions",
     "description": "Easy && intuitive assertions for JSON responses or nested associative arrays",
-    "keywords": ["phpunit", "assertions", "associative", "json", "matcher", "array"],
+    "keywords": ["phpunit","assert","json","api","associative","matcher","array"],
     "license": "MIT",
     "type": "library",
     "require": {
         "php": ">=7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.0",
+        "codacy/coverage": "dev-master"
     },
     "autoload": {
         "psr-4": {

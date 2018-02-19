@@ -11,7 +11,19 @@ class AssociativeArrayTest extends TestCase
     use AssociativeArrayTrait;
 
 
-    public function testSuccessful()
+    public function testSuccessfulAssertDateTimeStr()
+    {
+        $this->assertDateTimeStr('Y-m-d H:i:s', date('Y-m-d H:i:s'));
+    }
+
+
+    public function testSuccessfulAssertDigit()
+    {
+        $this->assertDigit('11');
+    }
+
+
+    public function testSuccessfulJSONResponse()
     {
         $json =
             <<<JSON
@@ -21,6 +33,9 @@ class AssociativeArrayTest extends TestCase
             "isActive" : true,
             "value"    : 12,
             "firstname": "Seiya",
+            "surname"  : "unknown",
+            "height"   : 1.70,
+            "cloth"    : "Pegasus",
             "deeper"   : {
                 "key1": "val1",
                 "key2": "2018-02-28 11:11:11",
@@ -35,6 +50,9 @@ JSON;
             'isActive'  => AA::assertBoolean(),
             'value'     => 12,
             'firstname' => 'Seiya',
+            'surname'   => AA::assertRegExp('~\w+known~'),
+            'height'    => AA::assertFloat(),
+            'cloth'     => AA::assertScalar(),
             'deeper'    => [
                 'key1' => 'val1',
                 'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
@@ -95,7 +113,9 @@ EOF
             'deeper'    => [
                 'key1' => 'val1',
                 'key2' => '2018-02-28 11:11:11',
-                'key3' => ['val1', 'val2', 11]
+                'key3' => function () {
+                    return time();
+                }
             ]
         ];
 
@@ -104,7 +124,7 @@ EOF
             'deeper'    => [
                 'key1' => 'val2',
                 'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
-                'key3' => ['val1', 'val2', 11]
+                'key3' => AA::assertCallable()
             ]
         ];
 
@@ -147,7 +167,7 @@ EOF
             'deeper'    => [
                 'key1' => AA::assertObject(),
                 'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
-                'key3' => ['val1', 'val2', 11]
+                'key3' => AA::assertArray()
             ]
         ];
 

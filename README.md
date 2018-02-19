@@ -28,40 +28,46 @@ class MyTestCase extends TestCase
 {
     use AssociativeArrayTrait;
 
-    public function testJSONRequest()
-    {
-        $json =
-                '{
-                    "id"       : 11,
-                    "extId"    : "111",
-                    "isActive" : true,
-                    "value"    : 12,
-                    "firstname": "Seiya",
-                    "deeper"   : {
-                      "key1": "val1",
-                      "key2": "2018-02-28 11:11:11",
-                      "key3": ["val1","val2",13]
+    public function testSuccessfulJSONResponse()
+        {
+            $json =
+                    '{
+                        "id"       : 11,
+                        "extId"    : "111",
+                        "isActive" : true,
+                        "value"    : 12,
+                        "firstname": "Seiya",
+                        "surname"  : "unknown",
+                        "height"   : 1.70,
+                        "cloth"    : "Pegasus",
+                        "deeper"   : {
+                            "key1": "val1",
+                            "key2": "2018-02-28 11:11:11",
+                            "key3": ["val1", "val2", 11]
+                        }
+                     }';
+    
+            $expected = [
+                'id'        => AA::assertInt(),
+                'extId'     => AA::assertDigit(),
+                'isActive'  => AA::assertBoolean(),
+                'value'     => 12,
+                'firstname' => 'Seiya',
+                'surname'   => AA::assertRegExp('~\w+known~'),
+                'height'    => AA::assertFloat(),
+                'cloth'     => AA::assertScalar(),
+                'deeper'    => [
+                    'key1' => 'val1',
+                    'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
+                    'key3' => function () {
+                        $actual = func_get_args()[0];
+                        $this::assertCount(3, $actual);
                     }
-                 }';  
-        
-        $expected = [
-            'id'        => AA::assertInt(),
-            'extId'     => AA::assertDigit(),
-            'isActive'  => AA::assertBoolean(),
-            'value'     => 12,
-            'firstname' => 'Seiya',
-            'deeper'    => [
-                'key1' => 'val1',
-                'key2' => AA::assertDateTimeStr('Y-m-d H:i:s'),
-                'key3' => function () {
-                    $actual = func_get_args()[0];
-                    $this::assertCount(3, $actual);
-                }
-            ]
-        ];
-        
-        $this->assertAssociativeArray($expected, json_decode($json, true));
-    }
+                ]
+            ];
+    
+            $this->assertAssociativeArray($expected, json_decode($json, true));
+        }
 }
 ```
 

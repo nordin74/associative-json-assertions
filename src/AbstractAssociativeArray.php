@@ -41,12 +41,10 @@ abstract class AbstractAssociativeArray extends TestCase
         foreach ($expected as $key => $value) {
             if (\is_array($value)) {
                 self::recursiveAssociativeAssertion($expected[$key], $actual[$key], $message);
+            } else if (is_callable($value)) {
+                $value($actual[$key], $message);
             } else {
-                if (is_callable($value)) {
-                    $value($actual[$key], $message);
-                } else {
-                    self::assertSame($actual[$key], $value, $message);
-                }
+                self::assertSame($actual[$key], $value, $message);
             }
         }
     }
