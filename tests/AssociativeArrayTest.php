@@ -1,7 +1,8 @@
 <?php
 
-namespace AssociativeAssertions;
+namespace AssociativeAssertions\Tests;
 
+use AssociativeAssertions\AssociativeArrayTrait;
 use AssociativeAssertions\AssociativeAssertions as AA;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
@@ -88,21 +89,7 @@ JSON;
             $message = $exception->getMessage();
         }
 
-        $this->assertEquals(
-            <<<EOF
-Failed asserting that Array &0 (
-    0 => 'id'
-    1 => 'extId'
-    2 => 'date'
-) is identical to Array &0 (
-    0 => 'id'
-    1 => 'value'
-    2 => 'firstname'
-).
-EOF
-            ,
-            $message
-        );
+        $this->assertEquals('Failed asserting that two arrays are identical.', $message);
     }
 
 

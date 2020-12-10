@@ -5,11 +5,12 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=7.0",
-        "phpunit/phpunit": "~6.0"
+        "php": "7.4.*",
+        "phpunit/phpunit": "~9.0"
     },
     "require-dev": {
-        "codacy/coverage": "dev-master"
+        "codacy/coverage": "dev-master",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
@@ -17,9 +18,9 @@
         }
     },
     "autoload-dev": {
-        "files": [
-            "vendor/phpunit/phpunit/tests/Framework/Constraint/ConstraintTestCase.php"
-        ]
+        "psr-4": {
+            "AssociativeAssertions\\Tests\\": "tests/"
+        }
     },
     "config": {
         "optimize-autoloader": true
