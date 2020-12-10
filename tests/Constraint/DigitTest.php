@@ -1,12 +1,13 @@
 <?php
 
-namespace AssociativeAssertions\Constraint;
+namespace AssociativeAssertions\Tests\Constraint;
 
-use PHPUnit\Framework\Constraint\ConstraintTestCase;
+use AssociativeAssertions\Constraint\Digit;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestFailure;
 
-class DigitTest extends ConstraintTestCase
+class DigitTest extends TestCase
 {
     public function testConstraint()
     {

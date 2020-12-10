@@ -1,12 +1,13 @@
 <?php
 
-namespace AssociativeAssertions\Constraint;
+namespace AssociativeAssertions\Tests\Constraint;
 
-use PHPUnit\Framework\Constraint\ConstraintTestCase;
+use AssociativeAssertions\Constraint\DateTimeStr;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestFailure;
 
-class DateTimeStrTest extends ConstraintTestCase
+class DateTimeStrTest extends TestCase
 {
     public function testConstraint()
     {

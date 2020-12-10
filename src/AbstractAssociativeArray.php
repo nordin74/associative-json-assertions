@@ -4,9 +4,8 @@ namespace AssociativeAssertions;
 
 use AssociativeAssertions\Constraint\DateTimeStr;
 use AssociativeAssertions\Constraint\Digit;
-
+use PHPUnit\Framework\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Util\InvalidArgumentHelper;
 
 
 abstract class AbstractAssociativeArray extends TestCase
@@ -19,11 +18,11 @@ abstract class AbstractAssociativeArray extends TestCase
     public static function assertAssociativeArray($expected, $actual, $message = '')
     {
         if (!\is_array($expected)) {
-            throw InvalidArgumentHelper::factory(1, 'array');
+            throw InvalidArgumentException::create(1, 'array');
         }
 
         if (!\is_array($actual)) {
-            throw InvalidArgumentHelper::factory(2, 'array');
+            throw InvalidArgumentException::create(2, 'array');
         }
 
         self::recursiveAssociativeAssertion($expected, $actual, $message);
@@ -58,11 +57,11 @@ abstract class AbstractAssociativeArray extends TestCase
     public static function assertDateTimeStr($format, $actual, $message = '')
     {
         if (!\is_string($format)) {
-            throw InvalidArgumentHelper::factory(1, 'string');
+            throw InvalidArgumentException::create(1, 'string');
         }
 
         if (!\is_string($actual)) {
-            throw InvalidArgumentHelper::factory(2, 'string');
+            throw InvalidArgumentException::create(2, 'string');
         }
 
         $constraint = new DateTimeStr($format);

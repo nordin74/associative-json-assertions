@@ -13,7 +13,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('string', $actual, $message);
+            AbstractAssociativeArray::assertIsString($actual, $message);
         };
     }
 
@@ -27,7 +27,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('integer', $actual, $message);
+            AbstractAssociativeArray::assertIsInt($actual, $message);
         };
     }
 
@@ -71,7 +71,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('boolean', $actual, $message);
+            AbstractAssociativeArray::assertIsBool($actual, $message);
         };
     }
 
@@ -101,7 +101,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('float', $actual, $message);
+            AbstractAssociativeArray::assertIsFloat($actual, $message);
         };
     }
 
@@ -115,7 +115,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('array', $actual, $message);
+            AbstractAssociativeArray::assertIsArray($actual, $message);
         };
     }
 
@@ -129,7 +129,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('scalar', $actual, $message);
+            AbstractAssociativeArray::assertIsScalar($actual, $message);
         };
     }
 
@@ -143,7 +143,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('object', $actual, $message);
+            AbstractAssociativeArray::assertIsObject($actual, $message);
         };
     }
 
@@ -157,7 +157,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('callable', $actual, $message);
+            AbstractAssociativeArray::assertIsCallable($actual, $message);
         };
     }
 
@@ -171,7 +171,7 @@ class AssociativeAssertions
             $args    = func_get_args();
             $actual  = $args[0];
             $message = $args[1];
-            AbstractAssociativeArray::assertInternalType('resource', $actual, $message);
+            AbstractAssociativeArray::assertIsResource($actual, $message);
         };
     }
 }

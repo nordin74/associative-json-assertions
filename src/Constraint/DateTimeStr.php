@@ -17,7 +17,6 @@ class DateTimeStr extends Constraint
      */
     public function __construct($format)
     {
-        parent::__construct();
         $this->format = $format;
     }
 
@@ -29,7 +28,7 @@ class DateTimeStr extends Constraint
      *
      * @return bool
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         $dateTime = \DateTime::createFromFormat($this->format, $other);
 
@@ -41,7 +40,7 @@ class DateTimeStr extends Constraint
      *
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return \sprintf('is a valid date with format "%s"', $this->format);
     }
