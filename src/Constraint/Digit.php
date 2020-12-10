@@ -17,7 +17,7 @@ class Digit extends Constraint
      */
     protected function matches($other)
     {
-        return ctype_digit($other);
+        return \ctype_digit($other);
     }
 
     /**

@@ -1,5 +1,7 @@
 # JSON - Associaive Array assertions for PHPUnit
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/nordin74/associative-json-assertions.svg)](https://packagist.org/packages/nordin74/associative-json-assertions)
+![Minimum PHP Version](https://img.shields.io/badge/php-%5E7.4-8892BF.svg?style=flat-square)](https://php.net/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c28e191f9dd543949859a8d91d3c12bb)](https://app.codacy.com/app/nordin74/associative-json-assertions?utm_source=github.com&utm_medium=referral&utm_content=nordin74/associative-json-assertions&utm_campaign=badger)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/a8bf0fc9e202430787bfef82204dfd38)](https://www.codacy.com/app/nordin74/associative-json-assertions?utm_source=github.com&utm_medium=referral&utm_content=nordin74/associative-json-assertions&utm_campaign=Badge_Coverage)
 [![Build Status](https://travis-ci.org/nordin74/associative-json-assertions.svg?branch=master)](https://travis-ci.org/nordin74/associative-json-assertions)

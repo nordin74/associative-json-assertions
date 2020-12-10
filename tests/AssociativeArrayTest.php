@@ -1,7 +1,8 @@
 <?php
 
-namespace AssociativeAssertions;
+namespace AssociativeAssertions\Tests;
 
+use AssociativeAssertions\AssociativeArrayTrait;
 use AssociativeAssertions\AssociativeAssertions as AA;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
