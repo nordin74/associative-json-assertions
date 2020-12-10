@@ -4,7 +4,6 @@ namespace AssociativeAssertions\Constraint;
 
 use PHPUnit\Framework\Constraint\Constraint;
 
-
 class DateTimeStr extends Constraint
 {
     /**
@@ -29,7 +28,7 @@ class DateTimeStr extends Constraint
      *
      * @return bool
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         $dateTime = \DateTime::createFromFormat($this->format, $other);
 
@@ -41,7 +40,7 @@ class DateTimeStr extends Constraint
      *
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return \sprintf('is a valid date with format "%s"', $this->format);
     }
