@@ -24,6 +24,19 @@ class AssociativeArrayTest extends TestCase
     }
 
 
+    public function testSuccessfulAssertOptional()
+    {
+        $this->assertOptional('assertDigit', ['11']);
+        $this->assertOptional('assertDateTimeStr', ['Y-m-d H:i:s', date('Y-m-d H:i:s')]);
+        $this->assertOptional('assertInt', [11]);
+        $this->assertOptional(11, [11]);
+        $this->assertOptional([1, 2, 3], [function() {
+            $actual = func_get_args()[0];
+            $this::assertTrue(array_sum($actual) === 6);
+        }]);
+    }
+
+
     public function testSuccessfulJSONResponse()
     {
         $json =
@@ -41,7 +54,9 @@ class AssociativeArrayTest extends TestCase
                 "key1": "val1",
                 "key2": "2018-02-28 11:11:11",
                 "key3": ["val1", "val2", 11]
-            }
+            },
+            "optionalDateTimeStr": "2018-11-11 11:11:11",
+            "optionalFixedValue": 7
         }
 JSON;
 
@@ -61,7 +76,9 @@ JSON;
                     $actual = func_get_args()[0];
                     $this::assertCount(3, $actual);
                 }
-            ]
+            ],
+            'optionalDateTimeStr' => AA::assertOptional(AA::assertDateTimeStr('Y-m-d H:i:s')),
+            'optionalFixedValue' => AA::assertOptional(7)
         ];
 
         $this->assertAssociativeArray($expected, json_decode($json, true));
@@ -89,7 +106,7 @@ JSON;
             $message = $exception->getMessage();
         }
 
-        $this->assertEquals('Failed asserting that two arrays are identical.', $message);
+        $this->assertEquals("The actual array contains unexpected keys.\nFailed asserting that false is true.", $message);
     }
 
 

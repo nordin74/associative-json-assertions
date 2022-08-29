@@ -93,6 +93,19 @@ class AssociativeAssertions
 
 
     /**
+     * @param mixed $type
+     *
+     * @return \Closure
+     */
+    public static function assertOptional($type)
+    {
+        return function ($actual, $message = '') use ($type) {
+            AbstractAssociativeArray::assertOptional($type, $actual, $message);
+        };
+    }
+
+
+    /**
      * @return \Closure
      */
     public static function assertFloat()
