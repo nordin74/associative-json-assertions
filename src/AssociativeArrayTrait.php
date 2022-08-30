@@ -34,4 +34,22 @@ trait AssociativeArrayTrait
     {
         AbstractAssociativeArray::assertDateTimeStr($format, $actual, $message);
     }
+
+
+    /**
+     * @param mixed $type
+     * @param array $params
+     *
+     * @return void
+     */
+    public static function assertOptional($type, $params)
+    {
+        if (is_string($type) && method_exists(AssociativeAssertions::class, $type)) {
+            $mixed = call_user_func_array(__NAMESPACE__ . "\AssociativeAssertions::$type", $params);
+        } else {
+            $mixed = $type;
+        }
+
+        AbstractAssociativeArray::assertOptional($mixed, end($params));
+    }
 }
