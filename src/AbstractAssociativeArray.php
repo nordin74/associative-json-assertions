@@ -37,12 +37,20 @@ abstract class AbstractAssociativeArray extends TestCase
      */
     private static function recursiveAssociativeAssertion($expected, $actual, $message = '')
     {
-        self::assertSame(array_keys($expected), array_keys($actual), $message);
+        $diff = array_diff(array_keys($actual), array_keys($expected));
+        self::assertTrue(empty($diff), 'The actual array contains unexpected keys.');
         foreach ($expected as $key => $value) {
             if (\is_array($value)) {
                 self::recursiveAssociativeAssertion($expected[$key], $actual[$key], $message);
             } else if (is_callable($value)) {
-                $value($actual[$key], $message);
+                $reflectionFx = new \ReflectionFunction($value);
+                if ($reflectionFx->getNumberOfParameters() && $reflectionFx->getNamespaceName() === __NAMESPACE__) {
+                    if (isset($actual[$key])) {
+                        $value($actual[$key], $message);
+                    }
+                } else {
+                    $value($actual[$key], $message);
+                }
             } else {
                 self::assertSame($actual[$key], $value, $message);
             }
@@ -78,5 +86,28 @@ abstract class AbstractAssociativeArray extends TestCase
     {
         $constraint = new Digit();
         self::assertThat($actual, $constraint, $message);
+    }
+
+
+    /**
+     * @param mixed $type
+     * @param mixed $actual
+     * @param string $message
+     *
+     * @return void
+     */
+    public static function assertOptional($type, $actual, $message = '')
+    {
+        if ($actual === null) {
+            return;
+        }
+
+        if (is_callable($type)) {
+            $type($actual, $message);
+        } elseif (is_callable($actual)) {
+            $actual($type);
+        } else {
+            self::assertSame($type, $actual, $message);
+        }
     }
 }
